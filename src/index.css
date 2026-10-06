@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-brand: 'Cinzel', serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-tech: 'Space Grotesk', sans-serif;
+    --font-display: 'Syne', sans-serif;
+    --font-editorial: 'Cormorant Garamond', serif;
+  }
+
+  body {
+    font-family: var(--font-heading);
+    background-color: #050505;
+    color: #f1f5f9;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Utilities for Luxury 3D Card Shimmer & Holograms */
+.font-brand {
+  font-family: var(--font-brand);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-editorial {
+  font-family: var(--font-editorial);
+}
+
+.font-tech {
+  font-family: var(--font-tech);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* 24K Champagne Gold Text Gradient */
+.gold-text-gradient {
+  background: linear-gradient(135deg, #fff2c5 0%, #d4af37 50%, #aa771c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Titanium & Obsidian Metallic Borders */
+.titanium-border {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.gold-border-glow {
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.15), inset 0 1px 0 rgba(255, 242, 197, 0.3);
+}
+
+/* 3D Marble Pedestal Showroom Reflection */
+.pedestal-marble {
+  background: linear-gradient(180deg, #181920 0%, #0d0e14 60%, #06060a 100%);
+  box-shadow: 
+    0 -10px 30px -5px rgba(255, 255, 255, 0.05),
+    0 25px 50px -12px rgba(0, 0, 0, 0.9),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Perspective Container for 3D Cards */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Luxury Card Shimmer & Foil Animation */
+@keyframes foil-sweep {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-foil {
+  background-size: 200% 200%;
+  animation: foil-sweep 6s ease infinite;
+}
+
+/* Ambient glow pulses */
+@keyframes ambient-pulse {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.05);
+  }
+}
+
+.animate-ambient {
+  animation: ambient-pulse 9s ease-in-out infinite;
+}
+
+/* Custom Scrollbar for Luxury Dark UI */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.5);
+}
+
+/* Subtle Grid Background */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+}
+
+.bg-radial-gradient {
+  background: radial-gradient(circle at 50% 0%, rgba(147, 51, 234, 0.12), transparent 70%);
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+

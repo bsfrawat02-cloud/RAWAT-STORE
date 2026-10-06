@@ -1,0 +1,8 @@
+{
+  "name": "RAWAT CARD STORE",
+  "description": "Premium Digital Credit Card Collection with 3D Holographic Visuals Fully Trusted ",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

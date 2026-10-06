@@ -1,0 +1,91 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'admin@rawatcards.com' ||
+        request.auth.token.email == 'sudhirffverma@gmail.com' ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'super_admin'])
+      );
+    }
+
+    // Default safety deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 1. Users collection: Allow read and write for customer and admin management
+    match /users/{userId} {
+      allow read, write: if true;
+    }
+
+    // 2. Wallets collection: Allow read and write for balance synchronization
+    match /wallets/{userId} {
+      allow read, write: if true;
+    }
+
+    // 3. Transactions collection: Ledger tracking and wallet operations
+    match /transactions/{txnId} {
+      allow read, write: if true;
+    }
+
+    // 4. Products collection (Public storefront catalog; admin managed; stock updates on purchase/refund)
+    match /products/{productId} {
+      allow read, write: if true;
+    }
+
+    // 5. Coupons collection (Public active coupons; admin managed; usage count increment on checkout)
+    match /coupons/{couponId} {
+      allow read, write: if true;
+    }
+
+    // 6. Orders collection: Customer & admin order records and refunds
+    match /orders/{orderId} {
+      allow read, write: if true;
+    }
+
+    // 7. Payment Requests collection: Customer payment submissions and admin verification
+    match /paymentRequests/{reqId} {
+      allow read, write: if true;
+    }
+
+    // 8. Settings collection (Global store & payment gateway config)
+    match /settings/{settingId} {
+      allow read, write: if true;
+    }
+
+    // 9. Referrals collection
+    match /referrals/{refId} {
+      allow read, write: if true;
+    }
+
+    // 10. Audit Logs collection (Admin only & system audit events)
+    match /auditLogs/{logId} {
+      allow read, write: if true;
+    }
+
+    // 11. Wishlists collection (Isolated per user)
+    match /wishlists/{userId} {
+      allow read, write: if true;
+    }
+
+    // 12. Live Chat & Support collection (Owner and admin)
+    match /chats/{chatId} {
+      allow read, write: if true;
+      match /messages/{msgId} {
+        allow read, write: if true;
+      }
+    }
+  }
+}
+

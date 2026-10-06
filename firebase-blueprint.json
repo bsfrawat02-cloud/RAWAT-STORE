@@ -1,0 +1,288 @@
+{
+  "entities": {
+    "users": {
+      "title": "Customer and Admin Accounts",
+      "description": "Registered user accounts, roles, balances, and security information.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique user ID" },
+        "username": { "type": "string", "description": "Customer username" },
+        "fullName": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string", "description": "Customer email" },
+        "passwordHash": { "type": "string", "description": "Hashed password" },
+        "role": { "type": "string", "enum": ["customer", "admin", "super_admin"] },
+        "isEmailVerified": { "type": "boolean" },
+        "verificationCode": { "type": "string" },
+        "verificationToken": { "type": "string" },
+        "verificationSentAt": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "suspended", "pending_verification"] },
+        "avatarSeed": { "type": "string" },
+        "membershipTier": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "lastLoginAt": { "type": "string" },
+        "referralCode": { "type": "string" },
+        "referredBy": { "type": "string" },
+        "totalReferralCommissionEarned": { "type": "number" },
+        "totalReferralBonusEarned": { "type": "number" },
+        "wishlist": { "type": "array" }
+      },
+      "required": ["id", "username", "email", "role"]
+    },
+    "products": {
+      "title": "Card Products",
+      "description": "Credit Card collection catalog.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "network": { "type": "string" },
+        "tier": { "type": "string" },
+        "rarity": { "type": "string" },
+        "finish": { "type": "string" },
+        "price": { "type": "number" },
+        "originalPrice": { "type": "number" },
+        "inStock": { "type": "boolean" },
+        "stockCount": { "type": "number" },
+        "cardNumber": { "type": "string" },
+        "cardHolder": { "type": "string" },
+        "validThru": { "type": "string" },
+        "cvv": { "type": "string" },
+        "perks": { "type": "array" },
+        "description": { "type": "string" },
+        "gradient": { "type": "string" },
+        "glowColor": { "type": "string" },
+        "accentColor": { "type": "string" },
+        "featured": { "type": "boolean" },
+        "isNew": { "type": "boolean" },
+        "hologramEffect": { "type": "boolean" },
+        "category": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "tags": { "type": "array" }
+      },
+      "required": ["id", "name", "price", "network"]
+    },
+    "coupons": {
+      "title": "Discount Promo Coupons",
+      "description": "Store discount coupons.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "discountPercent": { "type": "number" },
+        "maxDiscountAmount": { "type": "number" },
+        "minOrderAmount": { "type": "number" },
+        "expiresAt": { "type": "string" },
+        "usageLimit": { "type": "number" },
+        "usageCount": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "description": { "type": "string" }
+      },
+      "required": ["id", "code", "discountPercent"]
+    },
+    "wallets": {
+      "title": "Customer Wallets",
+      "description": "Real-time wallet balance per customer.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "balance": { "type": "number" },
+        "currency": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "balance"]
+    },
+    "transactions": {
+      "title": "Wallet Transactions",
+      "description": "Financial ledger transactions including deposits, purchases, refunds, and referral commissions.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "username": { "type": "string" },
+        "type": { "type": "string" },
+        "amount": { "type": "number" },
+        "balanceBefore": { "type": "number" },
+        "balanceAfter": { "type": "number" },
+        "status": { "type": "string" },
+        "description": { "type": "string" },
+        "reason": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "referenceId": { "type": "string" }
+      },
+      "required": ["id", "userId", "amount", "status"]
+    },
+    "paymentRequests": {
+      "title": "UPI Add Funds Requests",
+      "description": "Customer payment requests with UTR reference and admin approval workflow.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "username": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "amount": { "type": "number" },
+        "status": { "type": "string", "enum": ["PENDING_VERIFICATION", "APPROVED", "REJECTED"] },
+        "utrRef": { "type": "string" },
+        "requestedAt": { "type": "string" },
+        "reviewedAt": { "type": "string" },
+        "reviewedBy": { "type": "string" },
+        "rejectionReason": { "type": "string" },
+        "adminNotes": { "type": "string" }
+      },
+      "required": ["id", "userId", "amount", "status"]
+    },
+    "orders": {
+      "title": "Card Orders",
+      "description": "Customer purchase orders for luxury digital demo cards with serial keys.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "cardId": { "type": "string" },
+        "cardName": { "type": "string" },
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "price": { "type": "number" },
+        "finalPrice": { "type": "number" },
+        "discountApplied": { "type": "number" },
+        "couponUsed": { "type": "string" },
+        "status": { "type": "string" },
+        "digitalSerialKey": { "type": "string" },
+        "purchasedAt": { "type": "string" }
+      },
+      "required": ["id", "cardId", "userId", "finalPrice"]
+    },
+    "referrals": {
+      "title": "Referrals Ledger",
+      "description": "Records of friends referred and 20% deposit commissions earned.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "referrerId": { "type": "string" },
+        "referrerUsername": { "type": "string" },
+        "referredUserId": { "type": "string" },
+        "referredUsername": { "type": "string" },
+        "referredEmail": { "type": "string" },
+        "referralCodeUsed": { "type": "string" },
+        "signupBonusReferrer": { "type": "number" },
+        "signupBonusReferred": { "type": "number" },
+        "totalDepositedByFriend": { "type": "number" },
+        "totalCommissionEarned": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "lastDepositAt": { "type": "string" }
+      },
+      "required": ["id", "referrerId", "referredUserId"]
+    },
+    "settings": {
+      "title": "Store & Payment Settings",
+      "description": "Global UPI gateway settings, dynamic QR codes, and system configurations.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "upiId": { "type": "string" },
+        "backupUpiId": { "type": "string" },
+        "paymentDisplayName": { "type": "string" },
+        "paymentInstructions": { "type": "string" },
+        "instructionSteps": { "type": "array" },
+        "securityNotice": { "type": "string" },
+        "activeQrImageUrl": { "type": "string" },
+        "qrType": { "type": "string" },
+        "minDepositAmount": { "type": "number" },
+        "maxDepositAmount": { "type": "number" },
+        "quickPresetAmounts": { "type": "array" },
+        "requireUtr": { "type": "boolean" },
+        "isPaymentActive": { "type": "boolean" },
+        "maintenanceMessage": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "updatedBy": { "type": "string" },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["id", "upiId"]
+    },
+    "auditLogs": {
+      "title": "Admin Audit Logs",
+      "description": "Administrative action logs for audit trails.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "adminId": { "type": "string" },
+        "adminUsername": { "type": "string" },
+        "action": { "type": "string" },
+        "targetUserId": { "type": "string" },
+        "targetUsername": { "type": "string" },
+        "details": { "type": "string" },
+        "ipAddress": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "adminUsername", "action"]
+    },
+    "mockEmails": {
+      "title": "Email Notifications",
+      "description": "Verification and alert emails.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "to": { "type": "string" },
+        "toUsername": { "type": "string" },
+        "from": { "type": "string" },
+        "subject": { "type": "string" },
+        "bodyPreview": { "type": "string" },
+        "verificationToken": { "type": "string" },
+        "verificationCode": { "type": "string" },
+        "verificationLink": { "type": "string" },
+        "sentAt": { "type": "string" },
+        "read": { "type": "boolean" },
+        "type": { "type": "string" }
+      },
+      "required": ["id", "to", "subject"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "users",
+      "description": "Customer and admin account records."
+    },
+    "/products/{productId}": {
+      "schema": "products",
+      "description": "Card products catalog."
+    },
+    "/coupons/{couponId}": {
+      "schema": "coupons",
+      "description": "Store promo coupons."
+    },
+    "/wallets/{userId}": {
+      "schema": "wallets",
+      "description": "Customer digital wallet balances."
+    },
+    "/transactions/{txnId}": {
+      "schema": "transactions",
+      "description": "Financial ledger transactions."
+    },
+    "/paymentRequests/{reqId}": {
+      "schema": "paymentRequests",
+      "description": "Customer UPI payment requests."
+    },
+    "/orders/{orderId}": {
+      "schema": "orders",
+      "description": "Digital demo card purchase orders."
+    },
+    "/referrals/{refId}": {
+      "schema": "referrals",
+      "description": "Referral commission records."
+    },
+    "/settings/{settingId}": {
+      "schema": "settings",
+      "description": "Global store and payment configuration."
+    },
+    "/auditLogs/{logId}": {
+      "schema": "auditLogs",
+      "description": "Administrative security audit logs."
+    },
+    "/mockEmails/{emailId}": {
+      "schema": "mockEmails",
+      "description": "Notification emails and verification tokens."
+    }
+  }
+}
